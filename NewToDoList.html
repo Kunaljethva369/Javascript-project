@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+    <title>New ToDoList</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            align-items: center;
+            background: url('https://icons8.com/wp-content/uploads/2020/02/how-to-create-gradient-article.jpg') center no-repeat;
+        }
+        .container{
+            background: white;
+            padding: 1rem;
+            border-radius: 20px;
+        }
+        .container-Done {
+            border: 1px solid red;
+            width: max-content;
+            padding: 0.5rem;
+            border-radius: 1rem;
+        }
+
+        #addItem,
+        #task {
+            background-color: transparent !important;
+            border: 1px solid green;
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+        #addItem{
+            cursor: pointer;
+        }
+        /* p{color: white;} */
+        @media (max-width:992px) {
+            .container{
+                margin:0.500rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Done Task Are Below:-</h2>
+        <div class="container-Done" id="done" style="margin:1rem 0rem"></div>
+        <h1 style="margin:0.6rem 0rem">To Do List</h1>
+        <input type="text" id="task" placeholder="Enter Your Task Here..."><button
+            id="addItem">Add Item</button>
+            
+    </div>
+
+    <script>
+        let add = document.getElementById("addItem").addEventListener("click", () => {
+
+            let task = document.getElementById("task").value;
+            
+            let newItem = document.createElement("p");
+            newItem.style.fontSize = "2rem";
+            newItem.textContent = task;
+            newItem.style.color= "white";
+            document.getElementById("task").value = "";
+            
+            // correct Button
+            let Crbtn = document.createElement("span");
+            Crbtn.innerHTML = "<i class='fas fa-check-circle'></i>";
+            Crbtn.style.backgroundColor = "transparent";
+            Crbtn.style.border = "transparent";
+            Crbtn.style.color = "green";
+            Crbtn.style.fontSize = "1.3rem";
+            Crbtn.style.padding = "0.5rem 2rem";
+            Crbtn.style.borderRadius = "50px";
+            Crbtn.style.cursor = "pointer";
+            // Crbtn.style.marginLeft = '55rem';
+            Crbtn.addEventListener("click", () => {
+                let done = document.getElementById("done");
+                done.appendChild(newItem);
+                Crbtn.remove();
+                Wrbtn.remove();
+                newItem.style.color="black";
+            });
+
+
+            // Wrong Button
+            let Wrbtn = document.createElement("span");
+            Wrbtn.innerHTML = "<i class='fas fa-times-circle'></i>";
+            Wrbtn.style.backgroundColor = "transparent";
+            Wrbtn.style.border = "transparent";
+            Wrbtn.style.color = "red";
+            Wrbtn.style.fontSize = "1.3rem";
+            Wrbtn.style.padding = "0.5rem";
+            Wrbtn.style.borderRadius = "50px";
+            Wrbtn.style.cursor = "pointer";
+            Wrbtn.style.marginLeft = "1rem"
+            Wrbtn.addEventListener("click", () => {
+                newItem.remove();
+                Crbtn.remove();
+                Wrbtn.remove();
+            });
+
+            // To Appned the button and P element
+            document.body.appendChild(newItem);
+            newItem.append(Crbtn);
+            newItem.append(Wrbtn);
+
+
+            // AddItem Without Entering Item
+            if (task.length == 0) {
+                alert("Enter Your Task");
+                Crbtn.remove();
+                Wrbtn.remove();
+                newItem.remove();
+            }
+
+            
+        });
+
+    </script>
+</body>
+
+</html>

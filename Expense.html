@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+    <title>Javascript Project Expense Tracker</title>
+    <style>
+        
+        body{
+            background: url('https://images.ctfassets.net/ifu905unnj2g/3PvW4cvX3GM4mouGO6Eago/be5b38aa8bf78cb267bb3d5baa5e727b/Pie_Chart_and_Calculator_Yellow_Background__Accounting_-min.png');
+        }
+        .row h1,
+        .row h3,
+        .button {
+            text-align: center;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+        }
+
+        .name,
+        .date,
+        .amount {
+            display: flex;
+            justify-content: center;
+        }
+
+        .name input,
+        .date input,
+        .amount input {
+            width: 100%;
+            margin-left: 0.5rem;
+        }
+
+        .btn {
+            background-color: green;
+            color: white;
+        }
+
+        .inputContainer {
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            background-color: whitesmoke;
+            margin-bottom: 0.5rem;
+            padding: 0rem !important;
+        }
+
+        .nameInput,
+        .dateInput {
+            width: 20%;
+            border-right: 1px solid black;
+        }
+
+        .nameInput,
+        .dateInput,
+        .amountInput {
+            width: 100%;
+            text-align: center;
+            font-size: 1.3rem;
+            color: black;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Expense Tracker</h1>
+            <h3>Add Expense:</h3>
+            <div class="col-lg-10 name mb-4">
+                Name:<input type="text" id="name" placeholder="Where You Made A Expense?" />
+            </div>
+            <div class="col-lg-5 date mb-4">
+                Date:<input type="date" id="date" placeholder="mm/dd/yyyy" />
+            </div>
+            <div class="col-lg-5 amount mb-4">
+                Amount:<input type="text" id="amount" placeholder="Enter Your Amount" />
+            </div>
+        </div>
+        <div class="button mb-4">
+            <button class="btn" id="btn">Add Item</button>
+        </div>
+        <div class="row">
+            <div class="inputContainer">
+                <div class="nameInput" id="nameInput">Name</div>
+                <div class="dateInput" id="dateInput">Date</div>
+                <div class="amountInput" id="amountInput">Amount</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let btn = document.getElementById("btn").addEventListener("click", (e) => {
+
+        let name = document.querySelector("#name").value;
+        let date = document.querySelector("#date").value;
+        let amount = document.querySelector("#amount").value;
+
+        let nameInput = document.getElementById("nameInput");
+        let dateInput = document.getElementById("dateInput");
+        let amountInput = document.getElementById("amountInput");
+
+        let newNameInput = document.createElement("p");
+        newNameInput.style.marginTop = "1rem";
+        let newDateInput = document.createElement("p");
+        newDateInput.style.marginTop = "1rem";
+        let newAmountInput = document.createElement("p");
+        newAmountInput.style.marginTop = "1rem";
+
+        newNameInput.textContent = name;
+        newDateInput.textContent = date;
+        newAmountInput.textContent = amount;
+
+
+        nameInput.append(newNameInput);
+        dateInput.append(newDateInput);
+        amountInput.append(newAmountInput);
+
+        document.querySelector("#name").value = "";
+        document.querySelector("#date").value = "";
+        document.querySelector("#amount").value = "";
+
+        if (name.length == 0 || date.length == 0 || amount.length == 0) {
+            alert('Enter Your Expense Details');
+            newNameInput.remove();
+            newDateInput.remove();
+            newAmountInput.remove();
+        }
+    });
+</script>
+
+</html>

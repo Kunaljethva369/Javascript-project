@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+    <title>Javascript Project Form Validation</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        body{
+            background: url('https://d39l2hkdp2esp1.cloudfront.net/img/eps/E3740_2x/c/E3740_09.jpg?20170928201051') no-repeat center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            padding-top: 4rem;
+        }
+
+        .form-container {
+            box-shadow: 0px 10px 100px rgb(0 0 0 / 9%);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .but {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 10px;
+            border: transparent !important;
+            background-color: blue;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+        }
+
+
+        .formerror {
+            font-size: 1rem;
+            color: red;
+        }
+
+        .title {
+            color: black;
+            font-size: 1.2rem;
+            padding: 1rem 0rem 0rem 0rem;
+        }
+
+        .eye-container {
+            display: flex;
+            float: right;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .error{
+            border: 1px solid red !important;
+        }
+        .success{
+            border: 1px solid green !important;
+        }
+
+        .closeeye,
+        .confirmcloseeye {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="form-container">
+                <h1>Sign Up</h1>
+                <form action="#" name="myForm" onsubmit="return ValidateForm()">
+
+
+                    <!-- username -->
+                    <div class="formdeisgn" id="nameError" id="nameSuccess">
+                        <div class="title">Username:</div>
+                        <input type="text" name="fname" placeholder="Choose a Username">
+                        <div class="formerror"></div>
+                    </div>
+
+
+                    <!-- email -->
+                    <div class="formdeisgn" id="email">
+                        <div class="title">Email:</div>
+                        <input type="email" name="femail" placeholder="Enter your email">
+                        <div class="formerror"></div>
+                    </div>
+
+
+                    <!-- password -->
+                    <div class="formdeisgn" id="pass">
+                        <div class="title">Password:</div>
+                        <input type="password" name="fpass" class="password" placeholder="Enter a strong password">
+                        <div class="eye-container">
+                            <div id="eye" class="eye"><i class="fas fa-eye"></i></div>
+                            <div id="closeeye" class="closeeye"><i class="fas fa-eye-slash"></i></div>
+                        </div>
+                        <div class="formerror"></div>
+                    </div>
+
+
+                    <!-- confirm password -->
+                    <div class="formdeisgn" id="cpass">
+                        <div class="title">Confirm Password:</div>
+                        <input type="password" name="fcpass" class="cpassword" placeholder="Reenter your password">
+                        <div class="eye-container">
+                            <div id="confirmeye" class="eye"><i class="fas fa-eye"></i></div>
+                            <div id="confirmcloseeye" class="confirmcloseeye"><i class="fas fa-eye-slash"></i></div>
+                        </div>
+                        <div class="formerror"></div>
+                    </div>
+
+
+                    <!-- Submit Button -->
+                    <div class="button">
+                        <input class="but" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    function clearError() {
+        let error = document.getElementsByClassName('formerror');
+        for (let item of error) {
+            item.innerHTML = "";
+        }
+    }
+
+    function setError(id, error) {
+        let element = document.getElementById(id);
+        element.getElementsByClassName('formerror')[0].innerHTML = error;
+    }
+
+    function ValidateForm() {
+        let returnVal = true;
+        clearError();
+
+        // username
+        let name = document.forms['myForm']['fname'].value;
+        if (name.length < 3) {
+            setError("nameError", "Username should greater then 3");
+            returnVal = false;
+        }
+        if(name.length > 25){
+            setError("nameError","Username cannot be greater then 25");
+            returnVal = false;
+        }
+        if (name.length == 0) {
+            setError("nameError", "Username cannot be blank");
+            returnVal = false;
+        }
+    
+        // email
+        let email = document.forms['myForm']['femail'].value;
+        if (email.length == 0) {
+            setError("email", "Prodive your Email Id");
+            returnVal = false;
+        }
+        if (email.length > 30) {
+            setError("email", "Email Id Is To Long");
+            returnVal = false;
+        }
+
+        // password
+        let password = document.forms['myForm']['fpass'].value;
+        if (password.length == 0) {
+            setError("pass", "Enter a strong password");
+            returnVal = false;
+        }
+
+        // confirm password
+        let cpass = document.forms['myForm']['fcpass'].value;
+        if (cpass !== password) {
+            setError("cpass", "Should Match password");
+            returnVal = false;
+        }
+        if (cpass.length == 0) {
+            setError("cpass", "Please Enter password again");
+            returnVal = false;
+        }
+        return returnVal;
+    }
+
+
+
+    let eye = document.querySelector(".eye").addEventListener("click", () => {
+        let pass = document.querySelector(".password");
+        let eye = document.getElementById("eye");
+        let closeeye = document.getElementById("closeeye");
+        if (pass.type === "password") {
+            pass.type = "text";
+            if (closeeye.style.display = "none") {
+                closeeye.style.display = "flex";
+                eye.style.display = "none";
+            }
+        }
+    });
+    let closeeye = document.getElementById("closeeye").addEventListener("click", () => {
+        let pass = document.querySelector(".password");
+        let eye = document.getElementById("eye");
+        let closeeye = document.getElementById("closeeye");
+        if (pass.type === "text") {
+            pass.type = "password";
+            if (closeeye.style.display = "flex") {
+                closeeye.style.display = "none";
+                eye.style.display = "flex";
+            }
+        }
+    });
+
+
+
+
+    // confirm password
+    let ceye = document.querySelector("#confirmeye").addEventListener("click", () => {
+        let pass = document.querySelector(".cpassword");
+        let eye = document.getElementById("confirmeye");
+        let closeeye = document.getElementById("confirmcloseeye");
+        if (pass.type === "password") {
+            pass.type = "text";
+            if (closeeye.style.display = "none") {
+                closeeye.style.display = "flex";
+                eye.style.display = "none";
+            }
+        }
+    });
+
+    let confirmcloseeye = document.querySelector("#confirmcloseeye").addEventListener("click", () => {
+        let pass = document.querySelector(".cpassword");
+        let eye = document.getElementById("confirmeye");
+        let closeeye = document.getElementById("confirmcloseeye");
+        if (pass.type === "text") {
+            pass.type = "password";
+            if (closeeye.style.display = "flex") {
+                closeeye.style.display = "none";
+                eye.style.display = "flex";
+            }
+        }
+    });
+</script>
+
+</html>
